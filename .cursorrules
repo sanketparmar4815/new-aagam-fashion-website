@@ -1,0 +1,252 @@
+# .cursorrules — Premium Fashion Brand Static Website
+# Stack: Next.js 14 · TypeScript · Tailwind CSS · GSAP · Framer Motion · Lenis
+# Type: 100% Static (no backend, no database, no API routes, no auth)
+
+## Project Identity
+You are building a premium Indian fashion brand website selling:
+- Ready-to-wear clothing
+- Raw fabric materials (sold by the meter)
+- Custom tailoring services
+
+This is a static Next.js 14 site with App Router. No backend. No database.
+All product/collection/fabric data lives in `/src/data/*.ts` TypeScript files.
+The site is exported as static HTML and deployed to Vercel.
+
+---
+
+## ABSOLUTE RULES (Never Break These)
+
+1. ALWAYS write TypeScript — never plain `.js` files
+2. ALWAYS add `'use client'` to any component using hooks, GSAP, Framer Motion, or browser APIs
+3. ALWAYS put GSAP code inside `useEffect` — never at module level (SSR will break)
+4. ALWAYS clean up GSAP ScrollTrigger in useEffect return: `ScrollTrigger.getAll().forEach(t => t.kill())`
+5. ALWAYS use `next/image` — never `<img>` tags
+6. ALWAYS use `next/link` — never `<a href>` for internal routes
+7. ALWAYS use Tailwind utility classes — never write raw CSS in component files
+8. ALWAYS use the `cn()` helper from `@/lib/utils` for conditional classes
+9. ALWAYS import product/collection/fabric data from `/src/data/` — never hardcode in components
+10. NEVER add API routes, database connections, server actions, or authentication
+11. NEVER use `window` or `document` outside `useEffect`
+12. NEVER use `@apply` in Tailwind — use utility classes in JSX
+13. NEVER hardcode hex colors — use brand color tokens (`brand-black`, `brand-gold`, etc.)
+14. NEVER install new packages without telling the user the exact `npm install` command first
+
+---
+
+## Tech Stack Reference
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| Next.js | 14 (App Router) | Framework |
+| TypeScript | 5.x | Language |
+| Tailwind CSS | 3.x | Styling |
+| GSAP + ScrollTrigger | 3.x | Scroll animations |
+| Framer Motion | 11.x | Page transitions, micro-interactions |
+| Lenis | 1.x | Smooth scroll |
+| lucide-react | latest | Icons |
+| clsx + tailwind-merge | latest | Class utilities |
+
+---
+
+## Brand Design System
+
+### Colors (always use these token names in Tailwind)
+- `brand-black` (#0A0A0A) — primary background
+- `brand-white` (#F5F3EF) — warm white text
+- `brand-cream` (#EDE8DF) — light section backgrounds
+- `brand-gold` (#C9A96E) — primary accent, CTAs, highlights
+- `brand-gold-light` (#E8D5A8) — subtle gold tints
+- `brand-charcoal` (#1A1A1A) — card backgrounds
+- `brand-muted` (#6B6560) — secondary text
+- `brand-border` (#2A2A2A) — borders, dividers
+
+### Fonts
+- `font-display` = Cormorant Garamond (headlines, editorial)
+- `font-body` = DM Sans (body text, UI)
+- `font-mono` = DM Mono (labels, tags, counters, categories)
+
+### Typography Patterns
+```tsx
+// Hero headline
+className="font-display text-6xl md:text-8xl lg:text-[10vw] font-light tracking-wide leading-none"
+
+// Section heading
+className="font-display text-4xl md:text-6xl font-light tracking-wide"
+
+// Body text
+className="font-body text-base text-brand-white/80 leading-relaxed max-w-prose"
+
+// Category label / tag
+className="font-mono text-xs uppercase tracking-[0.2em] text-brand-gold"
+
+// Large decorative number
+className="font-mono text-[20vw] font-light text-brand-white/5 select-none pointer-events-none"
+```
+
+### Button Patterns
+```tsx
+// Primary CTA
+className="inline-flex items-center gap-3 px-8 py-4 border border-brand-gold text-brand-gold font-mono text-xs uppercase tracking-[0.2em] hover:bg-brand-gold hover:text-brand-black transition-all duration-300 cursor-pointer"
+
+// Ghost
+className="inline-flex items-center gap-3 px-8 py-4 border border-brand-white/30 text-brand-white font-mono text-xs uppercase tracking-[0.2em] hover:border-brand-white transition-all duration-300"
+```
+
+---
+
+## Folder Structure
+```
+src/
+├── app/
+│   ├── layout.tsx           ← Root layout: fonts, providers, Navbar, Footer
+│   ├── page.tsx             ← Homepage
+│   ├── globals.css          ← CSS variables, Tailwind base, font imports
+│   ├── collections/page.tsx
+│   ├── collections/[slug]/page.tsx
+│   ├── products/[slug]/page.tsx
+│   ├── fabrics/page.tsx
+│   ├── tailoring/page.tsx
+│   ├── about/page.tsx
+│   └── contact/page.tsx
+├── components/
+│   ├── layout/              ← Navbar, Footer, PageTransition
+│   ├── sections/            ← Hero, Collections, HorizontalScroll, Stats, etc.
+│   ├── ui/                  ← AnimatedText, MagneticButton, CustomCursor, Marquee
+│   └── providers/           ← SmoothScroll (Lenis + GSAP ticker)
+├── data/
+│   ├── products.ts
+│   ├── collections.ts
+│   ├── fabrics.ts
+│   └── testimonials.ts
+├── hooks/                   ← useScrollProgress, useTextScramble, useMagneticEffect
+├── lib/
+│   ├── gsap.ts              ← gsap.registerPlugin(ScrollTrigger)
+│   └── utils.ts             ← cn() helper
+└── types/index.ts           ← Product, Collection, Fabric, Testimonial interfaces
+```
+
+---
+
+## Animation Patterns (Always Use These)
+
+### Scroll Reveal (standard — use for all sections)
+```tsx
+useEffect(() => {
+  gsap.from(ref.current, {
+    y: 60, opacity: 0, duration: 1, ease: 'power3.out',
+    scrollTrigger: { trigger: ref.current, start: 'top 85%' }
+  })
+  return () => ScrollTrigger.getAll().forEach(t => t.kill())
+}, [])
+```
+
+### Stagger children
+```tsx
+gsap.from('.stagger-child', {
+  y: 40, opacity: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out',
+  scrollTrigger: { trigger: containerRef.current, start: 'top 80%' }
+})
+```
+
+### Framer Motion page entry
+```tsx
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+>
+```
+
+### Image parallax (scrub)
+```tsx
+gsap.to(imgRef.current, {
+  yPercent: -15, ease: 'none',
+  scrollTrigger: { trigger: wrapRef.current, start: 'top bottom', end: 'bottom top', scrub: true }
+})
+```
+
+---
+
+## Component Template
+```tsx
+'use client'                          // add only if using hooks/GSAP/events
+
+import { useEffect, useRef } from 'react'
+import { cn } from '@/lib/utils'
+
+interface ExampleProps {
+  className?: string
+  // all props typed here
+}
+
+export function ExampleComponent({ className }: ExampleProps) {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    // GSAP animations here
+    return () => ScrollTrigger.getAll().forEach(t => t.kill())
+  }, [])
+
+  return (
+    <section className={cn('py-24 md:py-32 px-6 md:px-12 lg:px-20 bg-brand-black', className)}>
+      {/* content */}
+    </section>
+  )
+}
+```
+
+---
+
+## Static Data Types
+```ts
+interface Product {
+  id: string; slug: string; name: string
+  category: 'clothing' | 'fabric' | 'tailoring'
+  price: number; currency: string; images: string[]
+  collection: string; description: string; featured: boolean; tags: string[]
+  details: { material: string; origin: string; care: string }
+}
+
+interface Fabric {
+  id: string; slug: string; name: string; origin: string
+  pricePerMeter: number; images: string[]; colors: string[]
+  composition: string; weight: string; width: string; moq: number
+}
+
+interface Collection {
+  id: string; slug: string; name: string; season: string
+  coverImage: string; description: string; products: string[]
+}
+```
+
+---
+
+## next.config.js (Required for static export)
+```js
+const nextConfig = {
+  output: 'export',
+  trailingSlash: true,
+  images: { unoptimized: true }
+}
+```
+
+---
+
+## Contact Form (No backend — use Formspree)
+```tsx
+<form action="https://formspree.io/f/YOUR_ID" method="POST">
+  <input name="name" type="text" required />
+  <input name="email" type="email" required />
+  <textarea name="message" required />
+  <button type="submit">Send</button>
+</form>
+```
+
+---
+
+## Debug Checklist
+- GSAP not working → check `'use client'`, check `ScrollTrigger` registered, check Lenis connected to ticker
+- Hydration error → move window/document into useEffect
+- Build fails → check `output: 'export'` and `images: { unoptimized: true }` in next.config.js
+- Tailwind color not working → check `tailwind.config.ts` has the brand colors in `extend.colors`
+- Images broken → paths must start with `/`, must be inside `/public/`
