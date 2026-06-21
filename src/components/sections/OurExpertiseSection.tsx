@@ -20,7 +20,8 @@ export function OurExpertiseSection() {
         <header className="mx-auto mb-14 max-w-2xl text-center">
           <h2
             id="expertise-heading"
-            className="font-display text-3xl font-medium tracking-tight text-on-surface md:text-5xl"
+            className="mt-5 text-center font-display text-3xl font-bold tracking-tight text-primary md:text-5xl"
+            // className="font-display text-3xl font-medium tracking-tight text-on-surface md:text-5xl"
           >
             Our expertise
           </h2>

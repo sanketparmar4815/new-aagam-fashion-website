@@ -28,11 +28,11 @@ export function TestimonialsSection() {
 
           <h2
             id="testimonials-heading"
-            className="mt-5 text-center font-display text-3xl font-bold tracking-tight text-foreground md:text-5xl"
+            className="mt-5 text-center font-display text-3xl font-bold tracking-tight text-primary md:text-5xl"
           >
             Words from our happy customers
           </h2>
-          <p className="mt-5 text-center font-body text-muted-foreground">
+          <p className="mt-5 text-center font-body text-muted-primary">
             Stories from clients who trust Aagam Fashion for fabrics, fit, and
             bespoke tailoring.
           </p>
