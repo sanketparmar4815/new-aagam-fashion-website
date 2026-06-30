@@ -37,7 +37,14 @@ export function OurExpertiseSection() {
             return (
               <article
                 key={card.id}
-                className="flex flex-col items-center rounded-card bg-surface-low/80 px-8 py-10 text-center shadow-ambient transition hover:-translate-y-1 hover:bg-surface-high"
+                className="flex flex-col items-center rounded-card bg-surface-low/80 px-8 py-10 text-center shadow-ambient transition
+                border border-white/10
+                hover:-translate-y-3
+                  hover:scale-[1.02]
+                  hover:border-primary/30
+                  hover:shadow-[0_25px_80px_rgba(0,0,0,0.35)]  
+                // hover:-translate-y-1 
+                // hover:bg-surface-high"
               >
                 <span className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary-container text-surface">
                   <Icon className="h-7 w-7" strokeWidth={1.25} />

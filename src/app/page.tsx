@@ -5,6 +5,9 @@ import { OurExpertiseSection } from "@/components/sections/OurExpertiseSection";
 import OurNumbersSection from "@/components/sections/OurNumbersSections";
 
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
+import { HomeProductGridSection } from "@/components/sections/HomeProductGridSection";
+import { WhyChooseUsSection } from "@/components/sections/WhyChooseUsSection";
+import { StatsCounterSection } from "@/components/sections/StatsCounterSection";
 
 export default function HomePage() {
   return (
@@ -12,6 +15,9 @@ export default function HomePage() {
       <HeroSection />
       <OurNumbersSection />
       <FeaturedCollectionSection />
+      <HomeProductGridSection />
+      <WhyChooseUsSection />
+      <StatsCounterSection />
       <OurExpertiseSection />
       <TestimonialsSection />
     </PageShell>

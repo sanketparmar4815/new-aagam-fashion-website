@@ -16,7 +16,7 @@ const quickLinks = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "Clothing", href: "/clothing" },
-  { label: "Fabric", href: "/fabric" },
+  { label: "Products", href: "/products" },
   { label: "Tailoring", href: "/tailoring" },
 ];
 
@@ -114,8 +114,9 @@ export function Footerdemo() {
             </h3>
 
             <address className="space-y-3 text-sm not-italic text-white/70">
-              <p>12 Heritage Lane</p>
-              <p>Fashion District, Mumbai 400001</p>
+              <p>13, Ratankala complex</p>
+              <p>Opp. Keshav Park, pandol ind.</p>
+              <p>Ved road,surat, 395004</p>
 
               <p>
                 Phone:{" "}

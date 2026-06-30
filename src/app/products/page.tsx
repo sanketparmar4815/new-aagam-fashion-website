@@ -1,16 +1,15 @@
-import { PageHero } from "@/components/layout/PageHero";
 import { PageShell } from "@/components/layout/PageShell";
-import { FabricMasterySection } from "@/components/sections/FabricMasterySection";
-import { OurExpertiseSection } from "@/components/sections/OurExpertiseSection";
+import { ProductsPageSection } from "@/components/sections/ProductsPageSection";
 import type { Metadata } from "next";
+import { PageHero } from "@/components/layout/PageHero";
+
 
 export const metadata: Metadata = {
-  title: "Fabric",
-  description:
-    "Premium fabrics sourced from master weavers — silks, cottons, and bespoke textiles by the meter.",
+  title: "Products",
+  description: "Browse through our exquisite collection of premium fabrics and ethnic wear for men.",
 };
 
-export default function FabricPage() {
+export default function ProductsPage() {
   return (
     <PageShell>
       <PageHero
@@ -20,8 +19,11 @@ export default function FabricPage() {
         imageSrc="https://images.unsplash.com/photo-1558171813-1c0887535cc1?w=1920&q=85"
         imageAlt="Fine fabric rolls and textile samples"
       />
-      <FabricMasterySection />
-      <OurExpertiseSection />
+       
+      
+      <main className="min-h-screen bg-primary">
+        <ProductsPageSection />
+      </main>
     </PageShell>
   );
 }

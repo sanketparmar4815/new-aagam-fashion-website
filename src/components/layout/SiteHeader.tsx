@@ -7,11 +7,11 @@ import { Menu, Search, X } from "lucide-react";
 
 const nav = [
   { label: "Home", href: "/" },
+  { label: "Products", href: "/products/" },
   { label: "Clothing", href: "/clothing/" },
-  { label: "Fabric", href: "/fabric/" },
   { label: "Custom tailoring", href: "/tailoring/" },
   { label: "About", href: "/about/" },
-  { label: "Blog", href: "/blog/" },
+  // { label: "Blog", href: "/blog/" },
 ] as const;
 
 export function SiteHeader() {
