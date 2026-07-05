@@ -47,9 +47,11 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ["var(--font-noto-serif)", "Georgia", "serif"],
+        display: ["var(--font-canela)", "var(--font-noto-serif)", "Georgia", "serif"],
         body: ["var(--font-manrope)", "system-ui", "sans-serif"],
         accent: ["var(--font-cormorant)", "Georgia", "serif"],
+        canela: ["var(--font-canela)", "Georgia", "serif"],
+        "canela-text": ["var(--font-canela-text)", "Georgia", "serif"],
       },
       boxShadow: {
         ambient: "0px 20px 40px rgba(30, 28, 16, 0.06)",

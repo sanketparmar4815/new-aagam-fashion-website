@@ -1,6 +1,41 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Manrope, Noto_Serif } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
+
+const canela = localFont({
+  src: [
+    {
+      path: "./fonts/CanelaText-Thin-Trial.otf",
+      weight: "100 900",
+      style: "normal",
+    },
+  ],
+  variable: "--font-canela",
+  display: "swap",
+});
+
+const canelaText = localFont({
+  src: [
+    {
+      path: "./fonts/CanelaText-Regular-Trial.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/CanelaText-Medium-Trial.otf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "./fonts/CanelaText-Bold-Trial.otf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-canela-text",
+  display: "swap",
+});
 
 const notoSerif = Noto_Serif({
   subsets: ["latin"],
@@ -55,7 +90,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${notoSerif.variable} ${manrope.variable} ${cormorant.variable}`}
+      className={`${notoSerif.variable} ${manrope.variable} ${cormorant.variable} ${canela.variable} ${canelaText.variable}`}
     >
       <body>{children}</body>
     </html>

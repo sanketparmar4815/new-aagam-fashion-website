@@ -1,7 +1,6 @@
 import { PageHero } from "@/components/layout/PageHero";
 import { PageShell } from "@/components/layout/PageShell";
 import { BestSellersSection } from "@/components/sections/BestSellersSection";
-import { FeaturedCollectionSection } from "@/components/sections/FeaturedCollectionSection";
 import { NewArrivalsSection } from "@/components/sections/NewArrivalsSection";
 import type { Metadata } from "next";
 
@@ -23,7 +22,6 @@ export default function ClothingPage() {
       />
       <BestSellersSection />
       <NewArrivalsSection />
-      <FeaturedCollectionSection />
     </PageShell>
   );
 }

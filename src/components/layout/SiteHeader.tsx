@@ -37,16 +37,19 @@ export function SiteHeader() {
     <>
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 border-b border-ghost-outline backdrop-blur-xl transition-all duration-500",
+          "fixed inset-x-0 top-0 z-50 backdrop-blur-xl transition-all duration-500",
           scrolled
-            ? "bg-surface/95 py-3 shadow-ambient"
-            : "bg-surface/88 py-4 shadow-sm"
+            ? "bg-surface/95 border-b border-ghost-outline py-3 shadow-ambient"
+            : "bg-transparent border-b border-transparent py-5"
         )}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 md:px-10">
           <Link
             href="/"
-            className="font-display text-xl font-medium tracking-tight text-on-surface md:text-2xl"
+            className={cn(
+              "font-display text-xl font-medium tracking-tight transition-colors duration-500 md:text-2xl",
+              scrolled ? "text-primary" : "text-white"
+            )}
           >
             Aagam Fashion
           </Link>
@@ -59,7 +62,12 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="font-body text-[11px] font-semibold uppercase tracking-[0.2em] text-on-surface transition-colors hover:text-primary"
+                className={cn(
+                  "font-body text-[11px] font-semibold uppercase tracking-[0.2em] transition-colors duration-500",
+                  scrolled
+                    ? "text-primary hover:text-accent-muted"
+                    : "text-white hover:text-accent"
+                )}
               >
                 {item.label}
               </Link>
@@ -69,7 +77,12 @@ export function SiteHeader() {
           <div className="flex items-center gap-1">
             <button
               type="button"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-lg text-on-surface transition-colors hover:bg-surface-low"
+              className={cn(
+                "inline-flex h-11 w-11 items-center justify-center rounded-lg transition-colors duration-500",
+                scrolled
+                  ? "text-primary hover:bg-surface-low"
+                  : "text-white hover:bg-white/10"
+              )}
               aria-label="Search"
               onClick={() => setSearchOpen(true)}
             >
@@ -77,7 +90,10 @@ export function SiteHeader() {
             </button>
             <button
               type="button"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-lg text-on-surface lg:hidden"
+              className={cn(
+                "inline-flex h-11 w-11 items-center justify-center rounded-lg lg:hidden transition-colors duration-500",
+                scrolled ? "text-primary" : "text-white"
+              )}
               aria-expanded={open}
               aria-controls="mobile-menu"
               onClick={() => setOpen((v) => !v)}
@@ -109,7 +125,7 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="font-display text-2xl text-on-surface"
+              className="font-display text-2xl text-primary"
               onClick={() => setOpen(false)}
             >
               {item.label}

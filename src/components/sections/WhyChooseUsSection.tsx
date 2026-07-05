@@ -2,7 +2,7 @@
 
 import { Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 const features = [
   {
@@ -32,7 +32,7 @@ const features = [
   },
 ];
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -40,18 +40,18 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
+    transition: { duration: 0.6, ease: [0.25, 1, 0.5, 1] },
   },
 };
 
 export function WhyChooseUsSection() {
   return (
-    <section className="bg-primary py-20 md:py-28 text-primary-foreground">
+    <section className="bg-surface py-20 md:py-28 text-on-surface">
       <div className="mx-auto max-w-7xl px-5 md:px-10">
         <header className="mb-16 text-center">
           <motion.h2 
@@ -59,16 +59,16 @@ export function WhyChooseUsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="font-display text-4xl font-medium tracking-tight md:text-5xl"
+            className="font-display text-4xl font-medium tracking-tight text-primary md:text-5xl"
           >
-            Why Choose <span className="text-accent">AAGAM FASHION</span>
+            Why Choose <span className="text-accent-muted">AAGAM FASHION</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto mt-4 max-w-2xl font-body text-sm text-primary-foreground/75 md:text-base"
+            className="mx-auto mt-4 max-w-2xl font-body text-sm text-muted md:text-base"
           >
             Experience the perfect blend of tradition, craftsmanship, and modern luxury
           </motion.p>
@@ -87,19 +87,19 @@ export function WhyChooseUsSection() {
               variants={itemVariants}
               whileHover={{ y: -5, scale: 1.02 }}
               className={cn(
-                "rounded-2xl border bg-primary-container p-8 transition-all hover:shadow-ambient",
+                "rounded-2xl border bg-white p-8 transition-all hover:shadow-ambient",
                 feature.highlighted
-                  ? "border-accent/40 shadow-[0_0_20px_rgba(255,225,123,0.15)]"
-                  : "border-primary-foreground/10 hover:border-accent/30"
+                  ? "border-accent-muted shadow-ambient"
+                  : "border-border/60 hover:border-accent-muted/40"
               )}
             >
               <div className="mb-6 inline-flex rounded-lg bg-accent p-3 text-accent-foreground shadow-md transition-transform hover:scale-110">
                 <Sparkles className="h-6 w-6" strokeWidth={1.5} />
               </div>
-              <h3 className="mb-3 font-display text-xl font-semibold text-primary-foreground">
+              <h3 className="mb-3 font-display text-xl font-semibold text-primary">
                 {feature.title}
               </h3>
-              <p className="font-body text-sm leading-relaxed text-primary-foreground/70">
+              <p className="font-body text-sm leading-relaxed text-muted">
                 {feature.description}
               </p>
             </motion.div>

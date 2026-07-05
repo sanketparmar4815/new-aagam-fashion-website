@@ -1,23 +1,35 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 
 export function HeroSection() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.36; // Set slow motion to 55% speed
+    }
+  }, []);
+
   return (
     <section
       id="hero"
-      className="relative flex min-h-[92vh] items-center justify-center overflow-hidden pt-24"
+      className="relative flex h-screen items-center justify-center overflow-hidden pt-24"
       aria-labelledby="hero-heading"
     >
       <div className="absolute inset-0">
-        <Image
-          src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1920&q=88"
-          alt="Tailor measuring fine fabric at the worktable"
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
+        <video
+          ref={videoRef}
+          src="/hero-bg.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="h-full w-full object-cover"
+          preload="auto"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-on-surface/55 via-on-surface/45 to-primary-container/85" />
+        <div className="absolute inset-0 bg-black/20" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-4xl px-6 text-center text-surface">
@@ -34,18 +46,22 @@ export function HeroSection() {
           Premium quality fabrics, designer wear, and bespoke tailoring services
           designed to bring your fashion vision to life.
         </p>
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-center gap-8 sm:flex-row sm:gap-16">
           <Link
             href="/clothing/"
-            className="inline-flex min-w-[200px] items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary-container px-10 py-4 font-body text-xs font-semibold uppercase tracking-[0.15em] text-surface shadow-ambient transition hover:opacity-95"
+            className="group relative pb-2 font-body text-xs font-semibold uppercase tracking-[0.2em] text-surface transition-colors duration-300 hover:text-primary"
           >
             Shop collection
+            <span className="absolute bottom-0 left-0 h-[2px] w-full bg-surface transition-opacity duration-300 group-hover:opacity-0" />
+            <span className="absolute bottom-0 left-0 h-[2px] w-full bg-primary transition-transform duration-300 origin-left scale-x-0 group-hover:scale-x-100" />
           </Link>
           <Link
             href="/tailoring/"
-            className="inline-flex min-w-[200px] items-center justify-center rounded-lg border border-surface/80 bg-transparent px-10 py-4 font-body text-xs font-semibold uppercase tracking-[0.15em] text-surface transition hover:bg-surface/10"
+            className="group relative pb-2 font-body text-xs font-semibold uppercase tracking-[0.2em] text-surface transition-colors duration-300 hover:text-primary"
           >
             Custom tailoring
+            <span className="absolute bottom-0 left-0 h-[2px] w-full bg-surface transition-opacity duration-300 group-hover:opacity-0" />
+            <span className="absolute bottom-0 left-0 h-[2px] w-full bg-primary transition-transform duration-300 origin-left scale-x-0 group-hover:scale-x-100" />
           </Link>
         </div>
       </div>
