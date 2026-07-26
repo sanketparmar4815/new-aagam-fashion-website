@@ -48,7 +48,7 @@ export function HeroSection() {
         </p>
         <div className="mt-12 flex flex-col items-center justify-center gap-8 sm:flex-row sm:gap-16">
           <Link
-            href="/clothing/"
+            href="/products/"
             className="group relative pb-2 font-body text-xs font-semibold uppercase tracking-[0.2em] text-surface transition-colors duration-300 hover:text-primary"
           >
             Shop collection

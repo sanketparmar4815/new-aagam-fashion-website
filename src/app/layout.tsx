@@ -90,9 +90,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${notoSerif.variable} ${manrope.variable} ${cormorant.variable} ${canela.variable} ${canelaText.variable}`}
     >
-      <body>{children}</body>
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }

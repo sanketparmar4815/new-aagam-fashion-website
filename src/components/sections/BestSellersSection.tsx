@@ -110,14 +110,14 @@ export function BestSellersSection() {
         </header>
       </div>
 
-      {/* Slider Wrapper */}
-      <div className="relative w-full">
+      {/* Slider Wrapper: constrained to max-w-7xl, matching header alignment */}
+      <div className="mx-auto max-w-7xl px-5 md:px-10 relative">
         {/* Left Arrow Button */}
         {canScrollLeft && (
           <button
             type="button"
             onClick={() => scroll("left")}
-            className="absolute left-6 top-[40%] -translate-y-1/2 z-20 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-surface shadow-ambient transition hover:bg-surface-low text-primary"
+            className="absolute left-2 lg:-left-6 top-[40%] -translate-y-1/2 z-20 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-surface shadow-ambient transition hover:bg-surface-low text-primary"
             aria-label="Previous category"
           >
             <ArrowLeft className="h-5 w-5" strokeWidth={1.5} />
@@ -129,18 +129,18 @@ export function BestSellersSection() {
           <button
             type="button"
             onClick={() => scroll("right")}
-            className="absolute right-6 top-[40%] -translate-y-1/2 z-20 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-surface shadow-ambient transition hover:bg-surface-low text-primary"
+            className="absolute right-2 lg:-right-6 top-[40%] -translate-y-1/2 z-20 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-surface shadow-ambient transition hover:bg-surface-low text-primary"
             aria-label="Next category"
           >
             <ArrowRight className="h-5 w-5" strokeWidth={1.5} />
           </button>
         )}
 
-        {/* Horizontal Scrollable Container */}
+        {/* Horizontal Scrollable Container (overflow is clipped inside the max-w-7xl frame) */}
         <div
           ref={scrollRef}
           onScroll={handleScroll}
-          className="flex gap-6 overflow-x-auto scrollbar-none snap-x snap-mandatory px-5 md:px-10 lg:px-24 pb-8"
+          className="flex gap-6 overflow-x-auto scrollbar-none snap-x snap-mandatory pb-8"
         >
           {categories.map((cat) => (
             <div

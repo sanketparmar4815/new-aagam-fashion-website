@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 const quickLinks = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
-  { label: "Clothing", href: "/clothing" },
+  { label: "Fabric", href: "/fabric" },
   { label: "Products", href: "/products" },
   { label: "Tailoring", href: "/tailoring" },
 ];

@@ -7,6 +7,8 @@ interface PageHeroProps {
   description?: string;
   imageSrc?: string;
   imageAlt?: string;
+  videoSrc?: string;
+  fullScreen?: boolean;
   className?: string;
 }
 
@@ -16,29 +18,50 @@ export function PageHero({
   description,
   imageSrc = "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&q=85",
   imageAlt = "Fashion atelier interior",
+  videoSrc,
+  fullScreen = false,
   className,
 }: PageHeroProps) {
   return (
     <section
       className={cn(
-        "relative flex min-h-[42vh] items-end overflow-hidden pt-24 md:min-h-[48vh]",
+        "relative flex overflow-hidden pt-24",
+        fullScreen
+          ? "h-screen min-h-screen items-center pb-20"
+          : "min-h-[42vh] md:min-h-[48vh] items-end pb-12 md:pb-16",
         className
       )}
       aria-labelledby="page-hero-heading"
     >
       <div className="absolute inset-0">
-        <Image
-          src={imageSrc}
-          alt={imageAlt}
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
+        {videoSrc ? (
+          <video
+            src={videoSrc}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <Image
+            src={imageSrc}
+            alt={imageAlt}
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-b from-on-surface/50 via-on-surface/55 to-on-surface/80" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-12 md:px-10 md:pb-16">
+      <div
+        className={cn(
+          "relative z-10 mx-auto w-full max-w-7xl px-5 md:px-10",
+          fullScreen ? "py-12" : "pb-12 md:pb-16"
+        )}
+      >
         {label && (
           <p className="mb-3 font-accent text-sm italic tracking-[0.12em] text-surface/90 md:text-base">
             {label}
