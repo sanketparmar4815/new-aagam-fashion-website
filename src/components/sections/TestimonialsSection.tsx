@@ -1,5 +1,6 @@
 import { TestimonialsColumn } from "@/components/ui/testimonials-columns-1";
 import { uiTestimonials } from "@/data/testimonials";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export function TestimonialsSection() {
   const testimonials = uiTestimonials.map((testimonial) => ({
@@ -19,24 +20,26 @@ export function TestimonialsSection() {
       aria-labelledby="testimonials-heading"
     >
       <div className="container z-10 mx-auto px-5 md:px-10">
-        <div className="mx-auto flex max-w-[620px] flex-col items-center justify-center">
-          <div className="flex justify-center">
-            <div className="rounded-lg border border-border px-4 py-1 font-body text-sm text-muted-foreground">
-              Testimonials
+        <ScrollReveal offset={24}>
+          <div className="mx-auto flex max-w-[620px] flex-col items-center justify-center">
+            <div className="flex justify-center">
+              <div className="rounded-lg border border-border px-4 py-1 font-body text-sm text-muted-foreground">
+                Testimonials
+              </div>
             </div>
-          </div>
 
-          <h2
-            id="testimonials-heading"
-            className="mt-5 text-center font-display text-3xl font-bold tracking-tight text-primary md:text-5xl"
-          >
-            Words from our happy customers
-          </h2>
-          <p className="mt-5 text-center font-body text-muted-primary">
-            Stories from clients who trust Aagam Fashion for fabrics, fit, and
-            bespoke tailoring.
-          </p>
-        </div>
+            <h2
+              id="testimonials-heading"
+              className="mt-5 text-center font-display text-3xl font-bold tracking-tight text-primary md:text-5xl"
+            >
+              Words from our happy customers
+            </h2>
+            <p className="mt-5 text-center font-body text-muted-primary">
+              Stories from clients who trust Aagam Fashion for fabrics, fit, and
+              bespoke tailoring.
+            </p>
+          </div>
+        </ScrollReveal>
 
         <div className="mt-10 flex max-h-[740px] justify-center gap-6 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)]">
           <TestimonialsColumn testimonials={firstColumn} duration={15} />

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Manrope, Noto_Serif } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import { SmoothScrollProvider } from "@/components/layout/SmoothScrollProvider";
 
 const canela = localFont({
   src: [
@@ -93,7 +94,9 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${notoSerif.variable} ${manrope.variable} ${cormorant.variable} ${canela.variable} ${canelaText.variable}`}
     >
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+      </body>
     </html>
   );
 }

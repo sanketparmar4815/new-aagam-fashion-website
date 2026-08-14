@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 const categories = [
   {
@@ -94,20 +95,22 @@ export function BestSellersSection() {
       aria-labelledby="best-sellers-heading"
     >
       <div className="mx-auto max-w-7xl px-5 md:px-10 mb-14">
-        <header className="max-w-2xl">
-          <span className="font-body text-xs font-bold uppercase tracking-[0.25em] text-accent-muted">
-            Our Collections
-          </span>
-          <h2
-            id="best-sellers-heading"
-            className="mt-4 font-display text-3xl font-medium tracking-tight text-primary md:text-5xl"
-          >
-            Best Sellers
-          </h2>
-          <p className="mt-4 font-body text-sm leading-relaxed text-muted md:text-base">
-            The pieces our clients return for — fabrics with heritage, tailoring with precision.
-          </p>
-        </header>
+        <ScrollReveal offset={24}>
+          <header className="max-w-2xl">
+            <span className="font-body text-xs font-bold uppercase tracking-[0.25em] text-accent-muted">
+              Our Collections
+            </span>
+            <h2
+              id="best-sellers-heading"
+              className="mt-4 font-display text-3xl font-medium tracking-tight text-primary md:text-5xl"
+            >
+              Best Sellers
+            </h2>
+            <p className="mt-4 font-body text-sm leading-relaxed text-muted md:text-base">
+              The pieces our clients return for — fabrics with heritage, tailoring with precision.
+            </p>
+          </header>
+        </ScrollReveal>
       </div>
 
       {/* Slider Wrapper: constrained to max-w-7xl, matching header alignment */}
@@ -140,6 +143,7 @@ export function BestSellersSection() {
         <div
           ref={scrollRef}
           onScroll={handleScroll}
+          data-lenis-prevent
           className="flex gap-6 overflow-x-auto scrollbar-none snap-x snap-mandatory pb-8"
         >
           {categories.map((cat) => (

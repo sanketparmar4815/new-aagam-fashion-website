@@ -3,7 +3,10 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Menu, Search, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
+
+import { useLenis } from "@/components/layout/SmoothScrollProvider";
 
 const nav = [
   { label: "Home", href: "/" },
@@ -17,21 +20,43 @@ const nav = [
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
+  const pathname = usePathname();
+  const isDarkInitial =
+    pathname?.startsWith("/products") || pathname?.startsWith("/fabric");
+  const lenis = useLenis();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      const scrollY = lenis ? lenis.scroll : window.scrollY;
+      setScrolled(scrollY > 24);
+    };
+
     onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+
+    if (lenis) {
+      lenis.on("scroll", onScroll);
+      return () => {
+        lenis.off("scroll", onScroll);
+      };
+    } else {
+      window.addEventListener("scroll", onScroll, { passive: true });
+      return () => window.removeEventListener("scroll", onScroll);
+    }
+  }, [lenis]);
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    if (open) {
+      document.body.style.overflow = "hidden";
+      lenis?.stop();
+    } else {
+      document.body.style.overflow = "";
+      lenis?.start();
+    }
     return () => {
       document.body.style.overflow = "";
+      lenis?.start();
     };
-  }, [open]);
+  }, [open, lenis]);
 
   return (
     <>
@@ -48,7 +73,7 @@ export function SiteHeader() {
             href="/"
             className={cn(
               "font-display text-xl font-medium tracking-tight transition-colors duration-500 md:text-2xl",
-              scrolled ? "text-primary" : "text-white"
+              scrolled || isDarkInitial ? "text-primary" : "text-white"
             )}
           >
             Aagam Fashion
@@ -64,7 +89,7 @@ export function SiteHeader() {
                 href={item.href}
                 className={cn(
                   "font-body text-[11px] font-semibold uppercase tracking-[0.2em] transition-colors duration-500",
-                  scrolled
+                  scrolled || isDarkInitial
                     ? "text-primary hover:text-accent-muted"
                     : "text-white hover:text-accent"
                 )}
@@ -78,21 +103,8 @@ export function SiteHeader() {
             <button
               type="button"
               className={cn(
-                "inline-flex h-11 w-11 items-center justify-center rounded-lg transition-colors duration-500",
-                scrolled
-                  ? "text-primary hover:bg-surface-low"
-                  : "text-white hover:bg-white/10"
-              )}
-              aria-label="Search"
-              onClick={() => setSearchOpen(true)}
-            >
-              <Search className="h-5 w-5" strokeWidth={1.25} />
-            </button>
-            <button
-              type="button"
-              className={cn(
                 "inline-flex h-11 w-11 items-center justify-center rounded-lg lg:hidden transition-colors duration-500",
-                scrolled ? "text-primary" : "text-white"
+                scrolled || isDarkInitial ? "text-primary" : "text-white"
               )}
               aria-expanded={open}
               aria-controls="mobile-menu"
@@ -134,42 +146,7 @@ export function SiteHeader() {
         </nav>
       </div>
 
-      {/* Search dialog */}
-      <div
-        className={cn(
-          "fixed inset-0 z-[60] flex items-start justify-center bg-on-surface/40 px-4 pt-24 transition",
-          searchOpen
-            ? "pointer-events-auto opacity-100"
-            : "pointer-events-none opacity-0"
-        )}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Search"
-        onClick={(e) => {
-          if (e.target === e.currentTarget) setSearchOpen(false);
-        }}
-      >
-        <div className="w-full max-w-lg rounded-card bg-surface p-6 shadow-ambient">
-          <div className="mb-4 flex items-center justify-between">
-            <span className="font-body text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-              Search
-            </span>
-            <button
-              type="button"
-              className="rounded-lg p-2 hover:bg-surface-low"
-              aria-label="Close search"
-              onClick={() => setSearchOpen(false)}
-            >
-              <X className="h-5 w-5" strokeWidth={1.25} />
-            </button>
-          </div>
-          <input
-            type="search"
-            placeholder="Fabrics, suits, occasions…"
-            className="w-full border-b border-on-surface/20 bg-transparent py-3 font-body text-on-surface outline-none transition focus:border-primary"
-          />
-        </div>
-      </div>
+
     </>
   );
 }
